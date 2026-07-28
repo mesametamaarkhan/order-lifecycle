@@ -1,0 +1,27 @@
+{
+  "_note": "Starting catalog + stock for the order-lifecycle task. 'products' is owned by the Product service; 'inventory.available' by the Inventory service. Prices are in PKR. P-1006 (available 1) and P-1007 (available 0) exist so you can exercise the failure/rollback path; the rest support the success path.",
+  "products": [
+    { "id": "P-1001", "name": "Embroidered Lawn Kurta", "brand": "Sana Safinaz", "category": "Kurta", "price": 4500 },
+    { "id": "P-1002", "name": "Silk Dupatta", "brand": "Sana Safinaz", "category": "Dupatta", "price": 2200 },
+    { "id": "P-1003", "name": "Cotton Shalwar", "brand": "Khaadi", "category": "Bottoms", "price": 1800 },
+    { "id": "P-1004", "name": "Chikankari Kameez", "brand": "Khaadi", "category": "Kameez", "price": 5200 },
+    { "id": "P-1005", "name": "Banarasi Saree", "brand": "Maria B", "category": "Saree", "price": 15000 },
+    { "id": "P-1006", "name": "Bridal Lehenga", "brand": "Maria B", "category": "Lehenga", "price": 65000 },
+    { "id": "P-1007", "name": "Velvet Shawl", "brand": "Generation", "category": "Shawl", "price": 6800 },
+    { "id": "P-1008", "name": "Printed Kurti", "brand": "Generation", "category": "Kurti", "price": 2900 },
+    { "id": "P-1009", "name": "Formal Waistcoat", "brand": "Junaid Jamshed", "category": "Menswear", "price": 7500 },
+    { "id": "P-1010", "name": "Embroidered Trousers", "brand": "Junaid Jamshed", "category": "Bottoms", "price": 3200 }
+  ],
+  "inventory": [
+    { "product_id": "P-1001", "available": 40 },
+    { "product_id": "P-1002", "available": 30 },
+    { "product_id": "P-1003", "available": 50 },
+    { "product_id": "P-1004", "available": 12 },
+    { "product_id": "P-1005", "available": 5 },
+    { "product_id": "P-1006", "available": 1 },
+    { "product_id": "P-1007", "available": 0 },
+    { "product_id": "P-1008", "available": 60 },
+    { "product_id": "P-1009", "available": 18 },
+    { "product_id": "P-1010", "available": 25 }
+  ]
+}
