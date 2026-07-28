@@ -21,31 +21,38 @@ This project implements an order lifecycle across three modules: Product, Invent
 ## How to Run (quick)
 Prereqs: Node (16+), npm.
 
-1. Install dependencies
+1. Get the code onto your machine — either clone the repo, or unzip the submission archive and move into the project directory:
+```bash
+# if cloning
+git clone <repo-url>
+cd order-lifecycle
+
+# if you received a zip instead
+unzip order-lifecycle.zip
+cd order-lifecycle
+```
+
+2. Install dependencies
 ```bash
 npm install
 ```
 
-2. Seed sample data (uses `seeds/products-inventory.json`):
+3. Seed sample data (uses `seeds/products-inventory.json`):
 ```bash
 npm run seed
 ```
 
-3. Run in dev mode (auto-reload):
+4. Run in dev mode (auto-reload):
 ```bash
 npm run dev
 ```
 
-4. API endpoints
+5. API endpoints
 - `GET /health` — healthcheck
 - `GET /products` and `GET /products/:id`
 - `GET /inventory/:product_id` and `POST /inventory/:product_id/reserve`
 - `POST /reservations/:id/confirm` and `POST /reservations/:id/release`
 - `POST /orders` and `GET /orders/:id`
-
-Environment variables:
-- `DB_PATH` — path to SQLite file (default: `data.sqlite`)
-- `SEED_PATH` — custom seed JSON path
 
 ## Tests
 Run the test suite with:
