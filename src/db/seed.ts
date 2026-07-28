@@ -21,7 +21,7 @@ interface SeedFile {
 }
 
 function seed() {
-  const seedPath = process.env.SEED_PATH || path.join(__dirname, '..', '..', 'seeds', 'products-inventory.json');
+  const seedPath = process.env.SEED_PATH || path.join(__dirname, '..', '..', 'seeds', 'products_inventory.json');
   const raw = fs.readFileSync(seedPath, 'utf-8');
   const data: SeedFile = JSON.parse(raw);
 
