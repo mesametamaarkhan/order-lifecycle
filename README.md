@@ -56,6 +56,16 @@ Tests are in `tests/` and cover idempotency, compensation, and concurrency behav
 
 Additional smoke tests were performed using `./smoke-tests.sh`.
 
+For a real concurrency check, run this separately (not inside the main smoke script) so it hits a product with guaranteed stock left, rather than one already exhausted by earlier test sections:
+```bash
+npm run seed
+curl -s -X POST http://localhost:3000/orders -H "Content-Type: application/json" \
+  -d '{"idempotency_key":"race-a","items":[{"product_id":"P-1006","quantity":1}]}' &
+curl -s -X POST http://localhost:3000/orders -H "Content-Type: application/json" \
+  -d '{"idempotency_key":"race-b","items":[{"product_id":"P-1006","quantity":1}]}' &
+wait
+```
+
 ## Tradeoffs
 - Single-process design simplifies testing and local development; an `inventoryClient` seam exists to swap in cross-process HTTP later.
 - Reservation TTL is recorded but automatic expiry requires an additional worker/service which was omitted for brevity.
