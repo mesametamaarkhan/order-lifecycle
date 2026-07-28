@@ -24,6 +24,7 @@ I then reviewed, tested, and corrected where needed.
 | 9 | Order module (orchestration + `inventoryClient` seam) | Drafted | **Caught a real bug**: missing-product handling threw *after* the order row was created, orphaning it in `PENDING`. Redirected to fail as an in-loop line failure instead |
 | 10 | App wiring | Drafted | Confirmed error middleware ordering; added `/health` |
 | 11 | Type-check + test run | Ran `tsc`, ran test suite, fixed surfaced issues | Reviewed each fix for correctness against the intended design |
+| 12 | Smoke test script | I supplied the test cases; AI wrapped them into a runnable bash script (`jq` output, unique keys per run, pass/fail checks) | Ran it myself; surfaced a real bug; bad input orphaned orders in `PENDING` instead of `FAILED`. Traced it, had it fixed, reran to confirm |
 
 ## Two concrete corrections
 
@@ -40,7 +41,18 @@ turning an intended `422` into an unhandled `500`. I isolated it with a
 standalone repro script, confirmed the cause, and had the constraint removed
 with a comment explaining why it's deliberately absent.
 
-Both are fixed in the codebase and covered by passing tests (6/6 green), not
+**3. Orphaned PENDING order on bad input (found via the smoke test script).**
+Validation for non-positive quantity lived inside the Inventory reserve
+call, and product-existence checks ran after the order row was already
+written. So a malformed request (quantity 0, unknown product) crashed
+after `PENDING` was already persisted, leaving it stuck there instead of
+reaching `FAILED`. I found this by running the smoke test script against
+the live server. Traced it to validation
+running too late in `placeOrder`, had it moved to run entirely before any
+DB write, reseeded, and reran the script to confirm clean `400 VALIDATION_ERROR`
+/ `404 PRODUCT_NOT_FOUND` responses with nothing left behind in `orders`.
+
+All three are fixed in the codebase and covered by passing tests (6/6 green), not
 just described here.
 
 ## Maintaining the audit trail

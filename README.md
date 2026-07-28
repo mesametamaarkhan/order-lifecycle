@@ -54,6 +54,8 @@ npm test
 ```
 Tests are in `tests/` and cover idempotency, compensation, and concurrency behaviors.
 
+Additional smoke tests were performed using `./smoke-tests.sh`.
+
 ## Tradeoffs
 - Single-process design simplifies testing and local development; an `inventoryClient` seam exists to swap in cross-process HTTP later.
 - Reservation TTL is recorded but automatic expiry requires an additional worker/service which was omitted for brevity.
